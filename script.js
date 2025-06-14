@@ -1,39 +1,129 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Rolagem suave para os links de navegação
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+        // ===== ESPERA O DOM CARREGAR COMPLETAMENTE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // ===== MENSAGEM DE BOAS-VINDAS BASEADA NO HORÁRIO =====
+            function mostrarSaudacao() {
+                const agora = new Date();
+                const hora = agora.getHours();
+                const welcomeElement = document.getElementById('welcome-message');
+                const greetingText = document.getElementById('greeting-text');
+                
+                let mensagem = '';
+                if (hora >= 5 && hora < 12) {
+                    mensagem = '🌅 Bom dia! Bem-vindo ao ZenSpa';
+                } else if (hora >= 12 && hora < 18) {
+                    mensagem = '☀️ Boa tarde! Bem-vindo ao ZenSpa';
+                } else {
+                    mensagem = '🌙 Boa noite! Bem-vindo ao ZenSpa';
+                }
+                
+                greetingText.textContent = mensagem;
+                welcomeElement.style.display = 'block';
+                
+                // Remove a mensagem após 5 segundos
+                setTimeout(() => {
+                    welcomeElement.style.display = 'none';
+                }, 5000);
             }
-        });
-    });
+            
+            // Chama a função de saudação
+            mostrarSaudacao();
 
-    // Animação do header ao rolar
-    const header = document.querySelector('header');
-    let lastScroll = 0;
+            // ===== FUNCIONALIDADE DO BOTÃO DE TEMA CLARO/ESCURO =====
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Verifica se há tema salvo no localStorage (simulado com variável)
+            let isDarkTheme = false;
+            
+            themeToggle.addEventListener('click', function() {
+                isDarkTheme = !isDarkTheme;
+                
+                if (isDarkTheme) {
+                    body.classList.add('dark-theme');
+                    themeIcon.className = 'fas fa-sun';
+                    themeToggle.title = 'Modo claro';
+                } else {
+                    body.classList.remove('dark-theme');
+                    themeIcon.className = 'fas fa-moon';
+                    themeToggle.title = 'Modo escuro';
+                }
+            });
 
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+            // ===== ROLAGEM SUAVE PARA LINKS DE NAVEGAÇÃO =====
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const offsetTop = targetElement.offsetTop - 56; // Compensar navbar fixa
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
 
-        if (currentScroll <= 0) {
-            header.classList.remove('scroll-up');
-            return;
-        }
+            // ===== FUNCIONALIDADE DE EXPANDIR/RECOLHER DETALHES DOS SERVIÇOS =====
+            document.querySelectorAll('.toggle-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const targetId = this.dataset.target;
+                    const targetElement = document.getElementById(targetId);
+                    const isExpanded = targetElement.classList.contains('expanded');
+                    
+                    if (isExpanded) {
+                        targetElement.classList.remove('expanded');
+                        this.textContent = 'Ver Detalhes';
+                        this.classList.remove('btn-success');
+                        this.classList.add('btn-outline-success');
+                    } else {
+                        targetElement.classList.add('expanded');
+                        this.textContent = 'Ocultar Detalhes';
+                        this.classList.remove('btn-outline-success');
+                        this.classList.add('btn-success');
+                    }
+                });
+            });
 
-        if (currentScroll > lastScroll && !header.classList.contains('scroll-down')) {
-            header.classList.remove('scroll-up');
-            header.classList.add('scroll-down');
-        } else if (currentScroll < lastScroll && header.classList.contains('scroll-down')) {
-            header.classList.remove('scroll-down');
-            header.classList.add('scroll-up');
-        }
-        lastScroll = currentScroll;
-    });
+            // ===== MOSTRAR/OCULTAR CAMPO DE OBSERVAÇÕES BASEADO EM CHECKBOX =====
+            const checkboxObservacoes = document.getElementById('tem-observacoes');
+            const grupoObservacoes = document.getElementById('observacoes-group');
+            
+            checkboxObservacoes.addEventListener('change', function() {
+                if (this.checked) {
+                    grupoObservacoes.style.display = 'block';
+                } else {
+                    grupoObservacoes.style.display = 'none';
+                    document.getElementById('observacoes').value = ''; // Limpa o campo
+                }
+            });
+
+            // ===== VALIDAÇÃO E ENVIO DO FORMULÁRIO =====
+            const form = document.getElementById('agendamento-form');
+            const campos = form.querySelectorAll('input[required], select[required]');
+            
+            // Configurar data mínima (hoje)
+            const dataInput = document.getElementById('data');
+            const hoje = new Date().toISOString().split('T')[0];
+            dataInput.min = hoje;
+            
+            // Validação em tempo real para cada campo
+            campos.forEach(campo => {
+                campo.addEventListener('blur', function() {
+                    validarCampo(this);
+                });
+                
+                campo.addEventListener('input', function() {
+                    if (this.classList.contains('is-invalid')) {
+                        validarCampo(this);
+                    }
+                });
+            });
+            
 
     // Validação e envio do formulário de agendamento
     const agendamentoForm = document.getElementById('agendamento-form');

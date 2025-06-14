@@ -12,16 +12,34 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <noscript>
+        <div class="no-js-warning">
+            ⚠️ Para uma melhor experiência, por favor habilite o JavaScript em seu navegador. 
+            Algumas funcionalidades podem não funcionar corretamente sem JavaScript.
+        </div>
+    </noscript>
+
+    <div id="welcome-message" class="welcome-message" style="display: none;">
+        <span id="greeting-text"></span>
+    </div>
+
+     <button class="theme-toggle" id="theme-toggle" title="Alternar tema">
+        <i class="fas fa-moon"></i>
+    </button>
     <!-- Barra de navegação com Bootstrap -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand text-success fw-bold" href="#">ZenSpa</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand text-success fw-bold" href="#banner">
+                <i class="fas fa-spa me-2"></i>ZenSpa
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#inicio">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#banner">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="#agendamento">Agendamento</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
@@ -31,51 +49,79 @@
     </nav>
 
     <!-- Seção(Banner Principal) -->
-    <section id="banner" class="vh-100 d-flex align-items-center text-white">
+     <section id="banner" class="vh-100 d-flex align-items-center text-white">
         <div class="container text-center">
-            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80;" alt="">
             <h1 class="display-4 fw-bold mb-4">Relaxe e Renove-se</h1>
             <p class="lead mb-4">Agende sua massagem terapêutica e descubra o poder do bem-estar</p>
-            <a href="#agendamento" class="btn btn-success btn-lg">Agendar Agora</a>
+            <a href="#agendamento" class="btn btn-success btn-lg">
+                <i class="fas fa-calendar-alt me-2"></i>Agendar Agora
+            </a>
         </div>
     </section>
 
-    <!-- Seção de Serviços -->
+    <!-- SEÇÃO DE SERVIÇOS COM CONTEÚDO EXPANDÍVEL -->
     <section id="servicos" class="py-5 bg-light">
         <div class="container">
-            <h2 class="text-center text-success mb-5">Nossos Serviços</h2>
+            <h2 class="text-center text-success mb-5">
+                <i class="fas fa-hands me-3"></i>Nossos Serviços
+            </h2>
             <div class="row g-4">
-                <!-- Card do Serviço 1 -->
+                <!-- Card do Serviço 1 - Massagem Relaxante -->
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <i class="fas fa-spa text-success fa-3x mb-3"></i>
                             <h3 class="card-title h5">Massagem Relaxante</h3>
-                            <p class="card-text">Alívio do estresse e tensão muscular</p>
+                            <p class="card-text">Alívio do estresse e tensão muscular através de técnicas suaves.</p>
+                            <button class="btn btn-outline-success btn-sm toggle-details" data-target="details-1">
+                                Ver Detalhes
+                            </button>
+                            <div id="details-1" class="expandable-content mt-3">
+                                <hr>
+                                <p><strong>Duração:</strong> 60 minutos</p>
+                                <p><strong>Preço:</strong> R$ 120,00</p>
+                                <p><strong>Benefícios:</strong> Reduz stress, melhora o sono e relaxa os músculos.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Card do Serviço 2 -->
+
+                <!-- Card do Serviço 2 - Massagem Terapêutica -->
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <i class="fas fa-hand-sparkles text-success fa-3x mb-3"></i>
                             <h3 class="card-title h5">Massagem Terapêutica</h3>
-                            <p class="card-text">Este é o texto do card. Lorem ipsum dolor sit amet, consectetur adipiscing elit.  </p>
-                            <button id="Leia Mais">Leia Mais</button>
-                        </div>
-                        <div class="full-text" style="display: none;">
-                            <p>Este é o texto completo do card. Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                            <p class="card-text">Tratamento específico para dores e tensões musculares.</p>
+                            <button class="btn btn-outline-success btn-sm toggle-details" data-target="details-2">
+                                Ver Detalhes
+                            </button>
+                            <div id="details-2" class="expandable-content mt-3">
+                                <hr>
+                                <p><strong>Duração:</strong> 90 minutos</p>
+                                <p><strong>Preço:</strong> R$ 180,00</p>
+                                <p><strong>Benefícios:</strong> Alívio de dores, melhora da circulação e recuperação muscular.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Card do Serviço 3 -->
+
+                <!-- Card do Serviço 3 - Massagem com Aromaterapia -->
                 <div class="col-md-4">
                     <div class="card h-100 shadow-sm">
                         <div class="card-body text-center">
                             <i class="fas fa-leaf text-success fa-3x mb-3"></i>
                             <h3 class="card-title h5">Massagem com Aromaterapia</h3>
-                            <p class="card-text">Experiência sensorial completa</p>
+                            <p class="card-text">Experiência sensorial completa com óleos essenciais.</p>
+                            <button class="btn btn-outline-success btn-sm toggle-details" data-target="details-3">
+                                Ver Detalhes
+                            </button>
+                            <div id="details-3" class="expandable-content mt-3">
+                                <hr>
+                                <p><strong>Duração:</strong> 75 minutos</p>
+                                <p><strong>Preço:</strong> R$ 150,00</p>
+                                <p><strong>Benefícios:</strong> Relaxamento profundo, equilíbrio emocional e bem-estar.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -90,36 +136,90 @@
                 <div class="col-md-8">
                     <div class="card shadow">
                         <div class="card-body p-4">
-                            <h2 class="text-center text-success mb-4">Agende seu Horário</h2>
-                            <form id="agendamento-form">
+                            <h2 class="text-center text-success mb-4">
+                                <i class="fas fa-calendar-check me-3"></i>Agende seu Horário
+                            </h2>
+                            <form id="agendamento-form" novalidate>
+                                <!-- Campo Nome com label for -->
                                 <div class="mb-3">
-                                    <label for="nome" class="form-label">Seu Nome</label>
-                                    <input type="text" class="form-control" placeholder="" required>
+                                    <label for="nome" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Seu Nome *
+                                    </label>
+                                    <input type="text" class="form-control" id="nome" name="nome" 
+                                           placeholder="Digite seu nome completo" required 
+                                           aria-describedby="nome-feedback">
+                                    <div id="nome-feedback" class="invalid-feedback"></div>
                                 </div>
+
+                                <!-- Campo Email com validação em tempo real -->
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Seu E-mail</label>
-                                    <input type="email" class="form-control" placeholder="" required>
-                                    <div class="invalid-feedback"></div>
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope me-2"></i>Seu E-mail *
+                                    </label>
+                                    <input type="email" class="form-control" id="email" name="email" 
+                                           placeholder="seuemail@exemplo.com" required 
+                                           aria-describedby="email-feedback">
+                                    <div id="email-feedback" class="invalid-feedback"></div>
                                 </div>
+
+                                <!-- Campo Telefone -->
                                 <div class="mb-3">
-                                    <label for="telefone" class="form-label">Seu Telefone</label>
-                                    <input type="tel" class="form-control" placeholder="" required>
+                                    <label for="telefone" class="form-label">
+                                        <i class="fas fa-phone me-2"></i>Seu Telefone *
+                                    </label>
+                                    <input type="tel" class="form-control" id="telefone" name="telefone" 
+                                           placeholder="(11) 99999-9999" required 
+                                           aria-describedby="telefone-feedback">
+                                    <div id="telefone-feedback" class="invalid-feedback"></div>
                                 </div>
+
+                                <!-- Seleção de Serviço -->
                                 <div class="mb-3">
-                                    <label for="servico" class="form-label">Selecione o Serviço</label>
-                                    <select class="form-select" required>
-                                        <option value="">Selecione o Serviço</option>
-                                        <option value="relaxante">Massagem Relaxante</option>
-                                        <option value="terapeutica">Massagem Terapêutica</option>
-                                        <option value="aroma">Massagem com Aromaterapia</option>
+                                    <label for="servico" class="form-label">
+                                        <i class="fas fa-spa me-2"></i>Selecione o Serviço *
+                                    </label>
+                                    <select class="form-select" id="servico" name="servico" required 
+                                            aria-describedby="servico-feedback">
+                                        <option value="">Escolha um serviço</option>
+                                        <option value="relaxante">Massagem Relaxante - R$ 120,00</option>
+                                        <option value="terapeutica">Massagem Terapêutica - R$ 180,00</option>
+                                        <option value="aroma">Massagem com Aromaterapia - R$ 150,00</option>
                                     </select>
+                                    <div id="servico-feedback" class="invalid-feedback"></div>
                                 </div>
+
+                                <!-- Campo Data -->
                                 <div class="mb-3">
-                                    <label for="data" class="form-label">Escolha a data para realizar o procedimento</label>
-                                    <input type="date" class="form-control" required>
+                                    <label for="data" class="form-label">
+                                        <i class="fas fa-calendar me-2"></i>Data do Agendamento *
+                                    </label>
+                                    <input type="date" class="form-control" id="data" name="data" required 
+                                           aria-describedby="data-feedback">
+                                    <div id="data-feedback" class="invalid-feedback"></div>
                                 </div>
-                                <button type="submit" class="btn btn-success w-100">Confirmar Agendamento</button>
-                            </form>
+
+                                <!-- Checkbox para mostrar campo de observações -->
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="tem-observacoes">
+                                        <label class="form-check-label" for="tem-observacoes">
+                                            Tenho observações especiais
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Campo de observações (aparece apenas quando checkbox marcado) -->
+                                <div class="mb-3" id="observacoes-group" style="display: none;">
+                                    <label for="observacoes" class="form-label">
+                                        <i class="fas fa-comment me-2"></i>Observações
+                                    </label>
+                                    <textarea class="form-control" id="observacoes" name="observacoes" 
+                                              rows="3" placeholder="Descreva suas observações especiais..."></textarea>
+                                </div>
+                                <!-- Botão de envio -->
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-check me-2"></i>Confirmar Agendamento
+                                </button>                            </form>
                         </div>
                     </div>
                 </div>
